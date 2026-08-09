@@ -83,7 +83,11 @@ const STRINGS = {
       <a href="https://www.mtm.se/punktskriftsnamnden/skrivregler-och-riktlinjer/skyltar-och-kartor-i-offentlig-miljo/" target="_blank" rel="noopener">MTM: Skyltar och kartor i offentlig miljö</a>
       (punktdiameter och punkthöjd för skylt: SS-ISO 17049:2017; relieftextens
       versalhöjd: ISO 21542). Amerikanska mått enligt
-      <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.`,
+      <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.<br>
+      TactileFab utvecklas och används i produktion av
+      <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
+      som tillverkar <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">taktila skyltar</a>
+      i Linköping.`,
   },
   en: {
     tag: "PREVIEW",
@@ -162,7 +166,10 @@ const STRINGS = {
       <a href="https://www.mtm.se/punktskriftsnamnden/skrivregler-och-riktlinjer/skyltar-och-kartor-i-offentlig-miljo/" target="_blank" rel="noopener">MTM: Signs and maps in public environments</a>
       (sign dot diameter and height: SS-ISO 17049:2017; tactile character height:
       ISO 21542). US dimensions per
-      <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.`,
+      <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.<br>
+      TactileFab is developed and used in production by
+      <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
+      a Swedish manufacturer of <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">tactile signs</a>.`,
   },
 };
 

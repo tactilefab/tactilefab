@@ -78,6 +78,14 @@ and [MTM: Signs and maps in public environments](https://www.mtm.se/punktskrifts
 ISO 21542). US dimensions per
 [ADA chapter 7: signs](https://www.access-board.gov/ada/guides/chapter-7-signs/).
 
+## About
+
+TactileFab is developed and used in production by
+[Lindströms Skylt](https://www.skyltar.org/), a Swedish sign manufacturer that
+makes [tactile signs](https://www.skyltar.org/taktila-skyltar/) in Linköping.
+The tool exists because we needed it ourselves — every feature maps to a real
+production step in a real sign shop.
+
 ## License
 
 MIT for the TactileFab code — see [LICENSE](LICENSE). Bundled third-party

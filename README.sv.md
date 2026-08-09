@@ -50,6 +50,14 @@ tabellfilerna hämtas vid start.
   borr-/fräsdjup och verifierar med mätning.
 - ADA:s detaljregler för minsta teckenmellanrum kontrolleras inte ännu.
 
+## Om
+
+TactileFab utvecklas och används i produktion av
+[Lindströms Skylt](https://www.skyltar.org/), som tillverkar
+[taktila skyltar](https://www.skyltar.org/taktila-skyltar/) i Linköping.
+Verktyget finns för att vi själva behövde det — varje funktion motsvarar ett
+verkligt produktionssteg i en verklig skyltverkstad.
+
 ## Licens
 
 MIT för TactileFab-koden — se [LICENSE](LICENSE). Bundlade tredjepartsdelar
