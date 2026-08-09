@@ -8,6 +8,7 @@
 const STRINGS = {
   sv: {
     tag: "BETA",
+    tagline: "Öppen källkod för taktila skyltar — från text till CNC-färdig SVG och DXF.",
     signtextLabel: "Text på skylten (en rad per skyltrad)",
     tableLabel: "Översättning",
     tableOptSv: "Svensk – oavkortad (sv-g0, Punktskriftsnämnden)",
@@ -53,8 +54,8 @@ const STRINGS = {
     emptyPrompt: "Skriv text ovan.",
     thText: "Text",
     thBraille: "Punktskrift",
-    statusLoading: "Laddar liblouis (WASM), tabeller och typsnitt …",
-    statusReady: (v, n) => `liblouis ${v} (egen WASM-build) · ${n} tabellfiler · Atkinson Hyperlegible · allt körs lokalt i webbläsaren`,
+    statusLoading: "Laddar punktskriftsmotorn …",
+    statusReady: () => "Allt körs lokalt i webbläsaren — din text lämnar aldrig datorn.",
     initError: (m) => "Fel vid initiering: " + m,
     renderError: (m) => "Renderingsfel: " + m,
     errNotBraille: (ch, hex) => `Tecknet "${ch}" (U+${hex}) är inte punktskrift`,
@@ -92,6 +93,7 @@ const STRINGS = {
   },
   en: {
     tag: "BETA",
+    tagline: "Open-source production tool for tactile and braille signage — from text to CNC-ready SVG and DXF.",
     signtextLabel: "Sign text (one line per sign row)",
     tableLabel: "Translation",
     tableOptSv: "Swedish – uncontracted (sv-g0, Swedish Braille Authority)",
@@ -137,8 +139,8 @@ const STRINGS = {
     emptyPrompt: "Type sign text above.",
     thText: "Text",
     thBraille: "Braille",
-    statusLoading: "Loading liblouis (WASM), tables and fonts …",
-    statusReady: (v, n) => `liblouis ${v} (own WASM build) · ${n} table files · Atkinson Hyperlegible · everything runs locally in your browser`,
+    statusLoading: "Loading the braille engine …",
+    statusReady: () => "Everything runs locally in your browser — your text never leaves your device.",
     initError: (m) => "Initialization error: " + m,
     renderError: (m) => "Render error: " + m,
     errNotBraille: (ch, hex) => `Character "${ch}" (U+${hex}) is not braille`,
