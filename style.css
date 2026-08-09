@@ -1,0 +1,61 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 1rem 1.5rem;
+  font: 15px/1.45 system-ui, -apple-system, sans-serif;
+  color: #1a1a1a; background: #f5f5f2;
+}
+header h1 { margin: 0 0 .25rem; font-size: 1.35rem; }
+.headrow { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.langsel { font: inherit; font-size: .8rem; padding: .2rem .4rem; border: 1px solid #ccc; border-radius: 5px; background: #fff; }
+.tag {
+  font-size: .7rem; font-weight: 600; text-transform: uppercase;
+  background: #d97706; color: #fff; border-radius: 4px;
+  padding: 2px 6px; vertical-align: middle; letter-spacing: .05em;
+}
+#status { margin: 0 0 1rem; color: #666; font-size: .85rem; }
+
+main { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+
+.controls { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+.controls label { display: block; margin: .6rem 0 .2rem; font-weight: 600; font-size: .85rem; }
+.controls label .range { font-weight: 400; color: #888; font-size: .75rem; }
+.controls textarea, .controls select, .controls input[type=number] {
+  width: 100%; padding: .4rem .5rem; font: inherit;
+  border: 1px solid #ccc; border-radius: 5px; background: #fff;
+}
+.controls label.check { font-weight: 400; display: flex; gap: .5rem; align-items: center; margin: .4rem 0; }
+.controls label.check input { width: auto; }
+.controls h2 { font-size: .95rem; margin: 1.2rem 0 .3rem; display: flex; justify-content: space-between; align-items: center; }
+.controls h2 button { font-size: .7rem; padding: 3px 8px; border: 1px solid #ccc; border-radius: 4px; background: #f3f3f3; cursor: pointer; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: .2rem .8rem; }
+.applystd {
+  margin: .5rem 0 .3rem; padding: .35rem .7rem; font-size: .78rem;
+  border: 1px solid #ccc; border-radius: 5px; background: #f3f3f3; cursor: pointer;
+}
+.stdnote { font-size: .75rem; color: #777; margin: .5rem 0 0; }
+.braillein { font-size: 1.2rem; line-height: 1.4; }
+.sizepair { display: flex; gap: .4rem; }
+.sizepair input { width: 50%; }
+.overriderow { margin-top: .8rem; padding: .5rem .6rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; color: #b91c1c; font-size: .85rem; }
+.overriderow label { margin: 0; font-weight: 600; }
+.buttons { margin-top: 1.2rem; display: flex; gap: .6rem; }
+.buttons button {
+  flex: 1; padding: .55rem; font: inherit; font-weight: 600;
+  border: none; border-radius: 6px; background: #1d4ed8; color: #fff; cursor: pointer;
+}
+.buttons button:disabled { background: #a3a3a3; cursor: default; }
+
+#preview { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; text-align: center; }
+#preview svg { max-width: 100%; height: auto; box-shadow: 0 2px 12px rgba(0,0,0,.12); }
+
+#readback { margin-top: 1rem; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; font-size: .85rem; }
+#readback table { border-collapse: collapse; width: 100%; }
+#readback td, #readback th { text-align: left; padding: .3rem .6rem .3rem 0; border-bottom: 1px solid #eee; vertical-align: top; }
+#readback .braille { font-size: 1.3rem; line-height: 1.2; }
+#readback .warn { color: #b45309; }
+#readback .err { color: #b91c1c; }
+#readback .dim { color: #666; }
+
+.note { font-size: .78rem; color: #777; max-width: 60ch; }
+.note a { color: inherit; }

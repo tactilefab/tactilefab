@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TactileFab Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="headrow">
+    <h1>TactileFab Studio <span class="tag" data-i18n="tag"></span></h1>
+    <select id="lang" class="langsel" aria-label="Language">
+      <option value="sv">Svenska</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+  <p id="status">…</p>
+</header>
+
+<main>
+  <section class="controls">
+    <label for="signtext"><span data-i18n="signtextLabel"></span></label>
+    <textarea id="signtext" rows="3">Reception</textarea>
+
+    <label for="table"><span data-i18n="tableLabel"></span></label>
+    <select id="table">
+      <option value="sv" selected data-i18n="tableOptSv"></option>
+      <option value="en-g2" data-i18n="tableOptEnG2"></option>
+      <option value="en-g1" data-i18n="tableOptEnG1"></option>
+      <option value="paste" data-i18n="tableOptPaste"></option>
+    </select>
+
+    <div id="brlwrap" style="display:none">
+      <label for="brltext"><span data-i18n="brltextLabel"></span></label>
+      <textarea id="brltext" rows="3" class="braillein"></textarea>
+    </div>
+
+    <label class="check"><input type="checkbox" id="lowercase" checked>
+      <span data-i18n="lowercaseLabel"></span></label>
+
+    <label class="check"><input type="checkbox" id="showtext" checked>
+      <span data-i18n="showtextLabel"></span></label>
+
+    <label class="check"><input type="checkbox" id="bold">
+      <span data-i18n="boldLabel"></span></label>
+
+    <h2 data-i18n="plateHeader"></h2>
+    <div class="grid">
+      <label><span data-i18n="sizemodeLabel"></span>
+        <select id="sizemode">
+          <option value="auto" selected data-i18n="sizeAuto"></option>
+          <option value="fixed" data-i18n="sizeFixed"></option>
+        </select></label>
+      <label id="platewrap" style="display:none"><span data-i18n="plateWHLabel"></span>
+        <span class="sizepair">
+          <input type="number" id="plateW" step="1" value="100">
+          <input type="number" id="plateH" step="1" value="50">
+        </span></label>
+      <label><span data-i18n="cornerRLabel"></span>
+        <input type="number" id="cornerR" step="0.5" value="0"></label>
+      <label><span data-i18n="holesLabel"></span>
+        <select id="holes">
+          <option value="0" selected data-i18n="holesNone"></option>
+          <option value="2" data-i18n="holes2"></option>
+          <option value="4" data-i18n="holes4"></option>
+        </select></label>
+      <label><span data-i18n="holeDiaLabel"></span>
+        <input type="number" id="holeDia" step="0.1" value="4.2"></label>
+      <label><span data-i18n="holeEdgeLabel"></span>
+        <input type="number" id="holeEdge" step="0.5" value="6"></label>
+    </div>
+
+    <h2 data-i18n="geoHeader"></h2>
+    <label for="standard"><span data-i18n="standardLabel"></span></label>
+    <select id="standard">
+      <option value="sv" selected data-i18n="stdOptSv"></option>
+      <option value="ada" data-i18n="stdOptAda"></option>
+    </select>
+    <button id="applystd" type="button" class="applystd" data-i18n="applyStd"></button>
+
+    <div class="grid">
+      <label><span data-i18n="dotDiaLabel"></span> <span class="range" id="r-dotDia"></span>
+        <input type="number" id="dotDia" step="0.01" value="1.0"></label>
+      <label><span data-i18n="dotCCLabel"></span> <span class="range" id="r-dotCC"></span>
+        <input type="number" id="dotCC" step="0.01" value="2.5"></label>
+      <label><span data-i18n="cellCCLabel"></span> <span class="range" id="r-cellCC"></span>
+        <input type="number" id="cellCC" step="0.01" value="6.0"></label>
+      <label><span data-i18n="lineCCLabel"></span> <span class="range" id="r-lineCC"></span>
+        <input type="number" id="lineCC" step="0.01" value="10.0"></label>
+      <label><span data-i18n="drillDiaLabel"></span> <span class="range" data-i18n="drillHint"></span>
+        <input type="number" id="drillDia" step="0.01" value="1.5"></label>
+      <label><span data-i18n="capHeightLabel"></span> <span class="range" id="r-capHeight"></span>
+        <input type="number" id="capHeight" step="0.5" value="25"></label>
+      <label><span data-i18n="gapLabel"></span> <span class="range" id="r-gap"></span>
+        <input type="number" id="gap" step="0.5" value="10"></label>
+      <label><span data-i18n="padLabel"></span>
+        <input type="number" id="pad" step="0.5" value="10"></label>
+      <label><span data-i18n="alignLabel"></span>
+        <select id="align">
+          <option value="left" selected data-i18n="alignLeft"></option>
+          <option value="center" data-i18n="alignCenter"></option>
+        </select></label>
+    </div>
+    <p class="stdnote" id="stdnote"></p>
+
+    <div id="overriderow" class="overriderow" style="display:none">
+      <label class="check"><input type="checkbox" id="override">
+        <span data-i18n="overrideLabel"></span></label>
+    </div>
+
+    <div class="buttons">
+      <button id="dlsvg" type="button" disabled data-i18n="dlSvg"></button>
+      <button id="dldxf" type="button" disabled data-i18n="dlDxf"></button>
+    </div>
+  </section>
+
+  <section class="output">
+    <div id="preview"></div>
+    <div id="readback"></div>
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<script src="vendor/liblouis/liblouis.js"></script>
+<script src="vendor/opentype/opentype.min.js"></script>
+<script src="i18n.js"></script>
+<script src="ll.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
