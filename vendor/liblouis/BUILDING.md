@@ -1,14 +1,20 @@
 # Building liblouis for TactileFab
 
-`liblouis.js` + `liblouis.wasm` in this directory are compiled from the official
-liblouis 3.38.0 release. To reproduce or upgrade the build (macOS recipe;
-Linux works the same with your package manager):
+`liblouis.js` + `liblouis.wasm` in this directory are compiled with
+**Emscripten 6.0.6** from the official, unmodified liblouis 3.38.0 release.
+The exact source archive is included in this repository:
+`third_party_sources/liblouis-3.38.0.tar.gz`
+(SHA-256 `afb26096b18b17f43e6055e6a79ce0058eb9dbdcdcc4597522dcd7f11915ec16`,
+identical to the
+[upstream release](https://github.com/liblouis/liblouis/releases/tag/v3.38.0)).
+
+To reproduce or upgrade the build (macOS recipe; Linux works the same with
+your package manager):
 
 ```bash
-brew install emscripten     # emscripten 6.x; needs python >= 3.10 on PATH
+brew install emscripten     # we used 6.0.6; needs python >= 3.10 on PATH
 
-curl -LO https://github.com/liblouis/liblouis/releases/download/v3.38.0/liblouis-3.38.0.tar.gz
-tar xzf liblouis-3.38.0.tar.gz && cd liblouis-3.38.0
+tar xzf third_party_sources/liblouis-3.38.0.tar.gz && cd liblouis-3.38.0
 
 emconfigure ./configure --host=wasm32-unknown-emscripten \
   --disable-shared --disable-dependency-tracking

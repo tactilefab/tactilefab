@@ -85,6 +85,9 @@ const STRINGS = {
       (punktdiameter och punkthöjd för skylt: SS-ISO 17049:2017; relieftextens
       versalhöjd: ISO 21542). Amerikanska mått enligt
       <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.<br>
+      Punktskriftsmotor: liblouis 3.38.0 under LGPL-2.1+ —
+      <a href="vendor/liblouis/COPYING.LESSER" target="_blank" rel="noopener">licens</a> och
+      <a href="third_party_sources/liblouis-3.38.0.tar.gz" rel="noopener">fullständig källkod</a>.<br>
       TactileFab utvecklas och används i produktion av
       <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
       som tillverkar <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">taktila skyltar</a>
@@ -170,6 +173,9 @@ const STRINGS = {
       (sign dot diameter and height: SS-ISO 17049:2017; tactile character height:
       ISO 21542). US dimensions per
       <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.<br>
+      Braille engine: liblouis 3.38.0 under LGPL-2.1-or-later —
+      <a href="vendor/liblouis/COPYING.LESSER" target="_blank" rel="noopener">license</a> and
+      <a href="third_party_sources/liblouis-3.38.0.tar.gz" rel="noopener">corresponding source</a>.<br>
       TactileFab is developed and used in production by
       <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
       a Swedish manufacturer of <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">tactile signs</a>.
