@@ -10,7 +10,7 @@ braille. No server, no account, no upload — nothing leaves your machine.
 
 *Svensk version: [README.sv.md](README.sv.md).*
 
-**Status:** preview. The braille geometry and text outlines are exact and the
+**Status:** beta. The braille geometry and text outlines are exact and the
 correctness gates work; shop validation (drill calibration, produced test signs)
 is still ahead. Don't treat output as standards-certified until then.
 

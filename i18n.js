@@ -7,7 +7,7 @@
 
 const STRINGS = {
   sv: {
-    tag: "FÖRSTUDIE",
+    tag: "BETA",
     signtextLabel: "Text på skylten (en rad per skyltrad)",
     tableLabel: "Översättning",
     tableOptSv: "Svensk – oavkortad (sv-g0, Punktskriftsnämnden)",
@@ -87,10 +87,11 @@ const STRINGS = {
       TactileFab utvecklas och används i produktion av
       <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
       som tillverkar <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">taktila skyltar</a>
-      i Linköping.`,
+      i Linköping. Öppen källkod (MIT) — kod och felrapporter på
+      <a href="https://github.com/tactilefab/tactilefab" target="_blank" rel="noopener">GitHub</a>.`,
   },
   en: {
-    tag: "PREVIEW",
+    tag: "BETA",
     signtextLabel: "Sign text (one line per sign row)",
     tableLabel: "Translation",
     tableOptSv: "Swedish – uncontracted (sv-g0, Swedish Braille Authority)",
@@ -169,7 +170,9 @@ const STRINGS = {
       <a href="https://www.access-board.gov/ada/guides/chapter-7-signs/" target="_blank" rel="noopener">ADA 703.2/703.3</a>.<br>
       TactileFab is developed and used in production by
       <a href="https://www.skyltar.org/" target="_blank" rel="noopener">Lindströms Skylt</a>,
-      a Swedish manufacturer of <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">tactile signs</a>.`,
+      a Swedish manufacturer of <a href="https://www.skyltar.org/taktila-skyltar/" target="_blank" rel="noopener">tactile signs</a>.
+      Open source (MIT) — code and issue tracker on
+      <a href="https://github.com/tactilefab/tactilefab" target="_blank" rel="noopener">GitHub</a>.`,
   },
 };
 

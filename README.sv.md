@@ -10,7 +10,7 @@ server, inget konto, ingen uppladdning — inget lämnar din dator.
 
 *English version: [README.md](README.md).*
 
-**Status:** förstudie. Punktskriftsgeometrin och textkonturerna är exakta och
+**Status:** beta. Punktskriftsgeometrin och textkonturerna är exakta och
 korrekthetsspärrarna fungerar; verkstadsvalidering (borrkalibrering, producerade
 provskyltar) återstår. Betrakta inte utdata som standardcertifierad före det.
 
