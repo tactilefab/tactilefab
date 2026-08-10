@@ -32,7 +32,10 @@ is still ahead. Don't treat output as standards-certified until then.
   custom diameter/edge distance) are included in both formats.
 - **Export:** millimeter-true SVG (whole sign incl. text outlines) and minimal
   DXF R12 (layer BRAILLE = drill circles, PLATE = contour incl. corner arcs,
-  MOUNT = mounting holes; text in DXF is planned).
+  MOUNT = mounting holes, TEXT = tactile text outlines as closed polylines).
+- **Letter spacing with ADA check:** adjustable extra spacing; in ADA mode the
+  smallest gap between adjacent tactile characters is checked against the
+  3.2 mm minimum of ADA 703.2.7.
 - **Export gate:** known errors (8-dot cells, non-braille characters,
   missing/mismatched lines, failed translation) block export until fixed — or
   until the user explicitly checks "export despite errors".
@@ -60,14 +63,13 @@ table files are fetched at startup.
 
 ## Known limitations
 
-- No text in the DXF yet (the SVG carries complete outlines; the DXF carries
-  braille, plate contour and mounting holes).
 - Dot height is standardized (SS-ISO 17049: 0.3–0.7 mm; ADA 703.3:
   0.64–0.94 mm) but is a Z dimension that 2D files cannot express — the shop
   achieves it via drill/milling depth and verifies by measurement. The app
   shows the standard's values in the note under the geometry fields.
-- Character spacing in tactile text follows the font's metrics; ADA's specific
-  minimum-spacing rules are not checked yet.
+- The ADA character-spacing check is an approximation: it measures horizontal
+  ink gaps via glyph bounding boxes (kerning ignored), which can over-warn for
+  diagonal letter pairs.
 
 ## Standards sources
 

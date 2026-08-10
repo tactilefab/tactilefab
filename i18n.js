@@ -43,6 +43,7 @@ const STRINGS = {
     drillDiaLabel: "Borrdiameter i DXF",
     drillHint: "kalibreras i verkstad",
     capHeightLabel: "Versalhöjd, taktil text",
+    letterSpacingLabel: "Teckenmellanrum, tillägg",
     gapLabel: "Avstånd text → punktskrift",
     padLabel: "Marginal (plattkant)",
     alignLabel: "Justering",
@@ -67,14 +68,15 @@ const STRINGS = {
     errNoFit: (nw, nh, W, H) => `Innehållet ryms inte på skylten: kräver ca ${nw} × ${nh} mm inkl. marginaler, skylten är ${W} × ${H} mm — minska versalhöjd/marginaler eller öka skylten`,
     warnRange: (k, v, min, max, std) => `${k}: ${v} mm ligger utanför intervallet ${min}–${max} mm (${std})`,
     warnHoleOverlap: "Monteringshål överlappar text/punktskrift – flytta hålen eller ändra layouten",
+    warnCharGap: (gap) => `Minsta lucka mellan taktila tecken är ca ${gap} mm – ADA 703.2.7 kräver minst 3,2 mm; öka teckenmellanrummet`,
     signSummary: (W, H, n) => `Skylt: ${W} × ${H} mm · ${n} punkter (borrhål)`,
     cellsWidth: (n, mm) => `${n} celler, ${mm} mm`,
     stdLabelSv: "svensk standard",
     stdLabelAda: "ADA 703.3",
     stdNoteSv: "Punkthöjd på skylt enligt SS-ISO 17049: 0,3–0,7 mm (styr fräsdjup/kulhöjd). Enstaka tecken som våningsnummer får vara 40–70 mm höga (ISO 21542).",
     stdNoteAda: "Punkthöjd enligt ADA 703.3: 0,64–0,94 mm. ADA kräver kontrakterad punktskrift (grade 2) – välj engelsk UEB grade 2 ovan.",
-    hintsSv: { dotDia: "1,0–1,7 (SS-ISO 17049)", dotCC: "ca 2,5 (MTM)", cellCC: "ca 6 (MTM)", lineCC: "ca 10 (MTM)", capHeight: "15–40 (ISO 21542)", gap: "–" },
-    hintsAda: { dotDia: "1,5–1,6", dotCC: "2,29–2,54", cellCC: "6,12–7,62", lineCC: "10,03–10,16", capHeight: "15,9–50,8", gap: "min 9,5" },
+    hintsSv: { dotDia: "1,0–1,7 (SS-ISO 17049)", dotCC: "ca 2,5 (MTM)", cellCC: "ca 6 (MTM)", lineCC: "ca 10 (MTM)", capHeight: "15–40 (ISO 21542)", gap: "–", letterSpacing: "–" },
+    hintsAda: { dotDia: "1,5–1,6", dotCC: "2,29–2,54", cellCC: "6,12–7,62", lineCC: "10,03–10,16", capHeight: "15,9–50,8", gap: "min 9,5", letterSpacing: "lucka ≥ 3,2 (703.2.7)" },
     noteHtml: `Punktskriftsgeometrin är exakt i mm (SVG/DXF). Den taktila texten
       exporteras som vektorkonturer i SVG:n med exakt versalhöjd, satt i Atkinson
       Hyperlegible (Braille Institute of America, OFL-licens). Text i DXF kommer
@@ -131,6 +133,7 @@ const STRINGS = {
     drillDiaLabel: "Drill diameter in DXF",
     drillHint: "calibrate in the shop",
     capHeightLabel: "Cap height, tactile text",
+    letterSpacingLabel: "Extra letter spacing",
     gapLabel: "Text → braille separation",
     padLabel: "Margin (plate edge)",
     alignLabel: "Alignment",
@@ -155,14 +158,15 @@ const STRINGS = {
     errNoFit: (nw, nh, W, H) => `Content does not fit the plate: needs approx. ${nw} × ${nh} mm incl. margins, plate is ${W} × ${H} mm — reduce cap height/margins or enlarge the plate`,
     warnRange: (k, v, min, max, std) => `${k}: ${v} mm is outside the ${min}–${max} mm range (${std})`,
     warnHoleOverlap: "Mounting hole overlaps text/braille – move the holes or adjust the layout",
+    warnCharGap: (gap) => `Smallest gap between tactile characters is approx. ${gap} mm – ADA 703.2.7 requires at least 3.2 mm; increase letter spacing`,
     signSummary: (W, H, n) => `Plate: ${W} × ${H} mm · ${n} dots (drill holes)`,
     cellsWidth: (n, mm) => `${n} cells, ${mm} mm`,
     stdLabelSv: "Swedish standard",
     stdLabelAda: "ADA 703.3",
     stdNoteSv: "Dot height on signage per SS-ISO 17049: 0.3–0.7 mm (governs milling depth/sphere height). Single characters such as floor numbers may be 40–70 mm tall (ISO 21542).",
     stdNoteAda: "Dot height per ADA 703.3: 0.64–0.94 mm. ADA requires contracted braille (grade 2) – choose English UEB grade 2 above.",
-    hintsSv: { dotDia: "1.0–1.7 (SS-ISO 17049)", dotCC: "approx. 2.5 (MTM)", cellCC: "approx. 6 (MTM)", lineCC: "approx. 10 (MTM)", capHeight: "15–40 (ISO 21542)", gap: "–" },
-    hintsAda: { dotDia: "1.5–1.6", dotCC: "2.29–2.54", cellCC: "6.12–7.62", lineCC: "10.03–10.16", capHeight: "15.9–50.8", gap: "min 9.5" },
+    hintsSv: { dotDia: "1.0–1.7 (SS-ISO 17049)", dotCC: "approx. 2.5 (MTM)", cellCC: "approx. 6 (MTM)", lineCC: "approx. 10 (MTM)", capHeight: "15–40 (ISO 21542)", gap: "–", letterSpacing: "–" },
+    hintsAda: { dotDia: "1.5–1.6", dotCC: "2.29–2.54", cellCC: "6.12–7.62", lineCC: "10.03–10.16", capHeight: "15.9–50.8", gap: "min 9.5", letterSpacing: "gap ≥ 3.2 (703.2.7)" },
     noteHtml: `Braille geometry is exact in mm (SVG/DXF). Tactile text is exported
       as vector outlines in the SVG at exact cap height, set in Atkinson
       Hyperlegible (Braille Institute of America, OFL license). Text in DXF is

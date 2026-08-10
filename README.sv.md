@@ -27,8 +27,10 @@ provskyltar) återstår. Betrakta inte utdata som standardcertifierad före det.
 - **Skyltstorlek som beställningen:** auto eller fast mått (t.ex. 100 × 50 mm) —
   ryms inte innehållet blockeras exporten med besked om vad som krävs.
   Hörnradie och monteringshål ingår i båda filformaten.
-- **Export:** mm-äkta SVG och minimal DXF R12 (lager BRAILLE, PLATE, MOUNT;
-  text i DXF kommer senare).
+- **Export:** mm-äkta SVG och minimal DXF R12 (lager BRAILLE, PLATE, MOUNT samt
+  TEXT med den taktila texten som slutna polylinjer).
+- **Teckenmellanrum med ADA-kontroll:** justerbart tillägg; i ADA-läge
+  kontrolleras minsta lucka mellan tecken mot 3,2 mm-kravet i 703.2.7.
 - **Exportspärr:** kända fel blockerar export tills de åtgärdas, eller tills
   användaren uttryckligen bockar i "exportera trots fel".
 - Gränssnitt på svenska och engelska.
@@ -44,11 +46,12 @@ tabellfilerna hämtas vid start.
 
 ## Kända begränsningar
 
-- Text i DXF:en saknas än så länge (SVG:n har kompletta konturer).
 - Punkthöjden är standardiserad (SS-ISO 17049: 0,3–0,7 mm; ADA: 0,64–0,94 mm)
   men är ett Z-mått som 2D-filer inte kan uttrycka — verkstaden uppnår den via
   borr-/fräsdjup och verifierar med mätning.
-- ADA:s detaljregler för minsta teckenmellanrum kontrolleras inte ännu.
+- ADA-kontrollen av teckenmellanrum är approximativ: den mäter horisontella
+  luckor via teckenboxar (kerning ignoreras) och kan övervarna för diagonala
+  teckenpar.
 
 ## Om
 

@@ -96,7 +96,7 @@ function brailleToDots(brl) {
 function readParams() {
   const p = {};
   for (const id of ["dotDia","dotCC","cellCC","lineCC","drillDia","capHeight","gap","pad",
-                    "plateW","plateH","cornerR","holeDia","holeEdge"]) {
+                    "plateW","plateH","cornerR","holeDia","holeEdge","letterSpacing"]) {
     p[id] = parseFloat($(id).value) || 0;
   }
   p.sizemode = $("sizemode").value;
@@ -127,6 +127,59 @@ function checkRanges(p) {
 function brailleLineWidth(nCells, p) {
   if (nCells === 0) return 0;
   return (nCells - 1) * p.cellCC + p.dotCC + p.dotDia;
+}
+
+// Flatten opentype path commands (M/L/Q/C/Z) into closed polyline contours.
+// 12 segments per curve keeps chord error well below 0.05 mm at sign sizes.
+function flattenPath(cmds, seg = 12) {
+  const contours = [];
+  let cur = null, px = 0, py = 0;
+  for (const c of cmds) {
+    if (c.type === "M") {
+      if (cur && cur.length > 1) contours.push(cur);
+      cur = [[c.x, c.y]]; px = c.x; py = c.y;
+    } else if (c.type === "L") {
+      cur.push([c.x, c.y]); px = c.x; py = c.y;
+    } else if (c.type === "Q") {
+      for (let i = 1; i <= seg; i++) {
+        const t = i / seg, m = 1 - t;
+        cur.push([m*m*px + 2*m*t*c.x1 + t*t*c.x, m*m*py + 2*m*t*c.y1 + t*t*c.y]);
+      }
+      px = c.x; py = c.y;
+    } else if (c.type === "C") {
+      for (let i = 1; i <= seg; i++) {
+        const t = i / seg, m = 1 - t;
+        cur.push([m*m*m*px + 3*m*m*t*c.x1 + 3*m*t*t*c.x2 + t*t*t*c.x,
+                  m*m*m*py + 3*m*m*t*c.y1 + 3*m*t*t*c.y2 + t*t*t*c.y]);
+      }
+      px = c.x; py = c.y;
+    } else if (c.type === "Z") {
+      if (cur && cur.length > 1) contours.push(cur);
+      cur = null;
+    }
+  }
+  if (cur && cur.length > 1) contours.push(cur);
+  return contours;
+}
+
+// Smallest horizontal ink gap between adjacent glyphs (word spaces excluded,
+// per ADA 703.2.7). Approximation via glyph bounding boxes, kerning ignored.
+function minGlyphGap(font, text, emMm, lsEm) {
+  const scale = emMm / font.unitsPerEm;
+  const glyphs = font.stringToGlyphs(text);
+  let x = 0, prevRight = null, minGap = Infinity;
+  for (const g of glyphs) {
+    const bb = g.getBoundingBox();
+    if (bb && bb.x2 > bb.x1) {
+      const left = x + bb.x1 * scale, right = x + bb.x2 * scale;
+      if (prevRight !== null) minGap = Math.min(minGap, left - prevRight);
+      prevRight = right;
+    } else {
+      prevRight = null; // space: gap over word spaces is not measured
+    }
+    x += (g.advanceWidth || 0) * scale + lsEm * emMm;
+  }
+  return minGap;
 }
 
 function render() {
@@ -183,10 +236,20 @@ function render() {
   // Em size in mm chosen so the cap height is exactly p.capHeight
   const emMm = p.capHeight * font.unitsPerEm / fontCapUnits(font);
   const textLineGap = p.capHeight * 0.5;
+  // Letter spacing in em units for opentype.js; kerning off when tracking is added
+  const lsEm = p.letterSpacing > 0 ? p.letterSpacing / emMm : 0;
+  const textOpts = { kerning: lsEm === 0, letterSpacing: lsEm };
 
   // Text widths straight from font metrics
   const textWidths = lines.map((line) =>
-    p.showText ? font.getAdvanceWidth(line.display, emMm) : 0);
+    p.showText ? font.getAdvanceWidth(line.display, emMm, textOpts) : 0);
+
+  // ADA 703.2.7: min 3.2 mm between the closest points of adjacent characters
+  if (p.showText && p.standard === "ada") {
+    let worst = Infinity;
+    for (const line of lines) worst = Math.min(worst, minGlyphGap(font, line.display, emMm, lsEm));
+    if (worst < 3.2) warnings.push(t("warnCharGap", worst.toFixed(1)));
+  }
 
   const brailleWidths = lines.map((l) => brailleLineWidth(l.dots.count, p));
   const contentW = Math.max(...textWidths, ...brailleWidths, 10);
@@ -230,15 +293,17 @@ function render() {
   const xFor = (w) => (p.align === "center" ? (W - w) / 2 : p.pad);
 
   let y = contentTop;
+  const textContours = []; // flattened glyph outlines for the DXF, in mm
   if (p.showText) {
     lines.forEach((line, i) => {
       // Vector outlines via opentype.js – baseline sits p.capHeight below the row top
-      const glyphPath = font.getPath(line.display, xFor(textWidths[i]), y + p.capHeight, emMm);
+      const glyphPath = font.getPath(line.display, xFor(textWidths[i]), y + p.capHeight, emMm, textOpts);
       const el = document.createElementNS(NS, "path");
       el.setAttribute("d", glyphPath.toPathData(3));
       el.setAttribute("fill", "#1a1a1a");
       el.setAttribute("class", "tactiletext");
       svg.appendChild(el);
+      textContours.push(...flattenPath(glyphPath.commands));
       y += p.capHeight + (i < lines.length - 1 ? textLineGap : 0);
     });
     y += p.gap;
@@ -326,7 +391,7 @@ function render() {
   const blocked = errors.length > 0 && !$("override").checked;
 
   const svgText = new XMLSerializer().serializeToString(svg);
-  const dxfText = makeDxf(dotCenters, W, H, p.drillDia / 2, cornerR, holes, p.holeDia / 2);
+  const dxfText = makeDxf(dotCenters, W, H, p.drillDia / 2, cornerR, holes, p.holeDia / 2, textContours);
   lastExport = blocked ? null : { svgText, dxfText, W, H };
   setExportEnabled(!blocked);
 
@@ -336,7 +401,7 @@ function render() {
 
 /* ---------- DXF (minimal R12) ---------- */
 
-function makeDxf(dotCenters, W, H, drillR, cornerR, holes, holeR) {
+function makeDxf(dotCenters, W, H, drillR, cornerR, holes, holeR, textContours) {
   const L = [];
   const push = (...vals) => L.push(...vals);
   const line = (x1, y1, x2, y2) => push("0", "LINE", "8", "PLATE",
@@ -366,6 +431,15 @@ function makeDxf(dotCenters, W, H, drillR, cornerR, holes, holeR) {
     push("0", "CIRCLE", "8", "MOUNT",
       "10", h.x.toFixed(3), "20", (H - h.y).toFixed(3), "30", "0",
       "40", holeR.toFixed(3));
+  }
+  // Tactile text as closed polylines on layer TEXT (glyph outlines, flattened)
+  for (const contour of textContours || []) {
+    push("0", "POLYLINE", "8", "TEXT", "66", "1", "70", "1");
+    for (const [x, yy] of contour) {
+      push("0", "VERTEX", "8", "TEXT",
+        "10", x.toFixed(3), "20", (H - yy).toFixed(3), "30", "0");
+    }
+    push("0", "SEQEND");
   }
   push("0", "ENDSEC", "0", "EOF");
   return L.join("\n") + "\n";
@@ -426,7 +500,8 @@ async function init() {
   } };
   for (const id of ["signtext","brltext","table","lowercase","showtext","bold","override",
                     "sizemode","plateW","plateH","cornerR","holes","holeDia","holeEdge",
-                    "dotDia","dotCC","cellCC","lineCC","drillDia","capHeight","gap","pad","align"]) {
+                    "dotDia","dotCC","cellCC","lineCC","drillDia","capHeight","gap","pad",
+                    "letterSpacing","align"]) {
     $(id).addEventListener("input", rerender);
   }
   $("standard").addEventListener("input", () => { updateHints(); rerender(); });
